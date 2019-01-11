@@ -14,6 +14,7 @@ class App extends Component {
 
     this.state={
       address: '',
+      isLoading: false,
       currentAccountIndex: 0,
     }
   }
@@ -87,7 +88,7 @@ class App extends Component {
           </div>
         </div>
 
-        <div className="Loading">
+        <div className="Loading" style={{ display: this.state.isLoading ? 'block' : 'none'}}>
           <div className="Container">
             <h2>Waiting transaction confirmation...</h2>
             <img src={spinner} />
