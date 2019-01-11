@@ -18,7 +18,7 @@
   -webkit-filter: blur(12px);
 }
 
-.Container {
+.AppContainer {
   position: absolute;
   text-align: center;
   /*background-color: #282c34;*/
@@ -62,8 +62,55 @@ b {
 .Teams {
   display: flex;
   justify-content: space-between;
-  max-width: 60%;
+  width: 80%;
   min-width: 700px;
+}
+
+.Results {
+  background-color: rgba(0,0,0,0.3);
+  border-radius: 8px;
+  box-shadow: 0 0 50px rgba(0,0,0,0.8);
+  color: white;
+  padding: 20px;
+  width: 220px;
+  height: 80px;
+  align-self: center;
+}
+
+.Results .Scores {
+  width: 100%;
+  justify-content: space-between;
+  display: flex;
+}
+
+.Results .spacer {
+  margin: 0 5px;
+}
+
+.Results input {
+  width: calc(50% - 22px);
+  text-align: center;
+  font-size: 30px;
+  background-color: rgba(0,0,0,0.2);
+  border: none;
+  outline: none;
+  color: white;
+  padding: 5px;
+  padding-left: 20px;
+  border-radius: 5px;
+}
+
+.Results button {
+  width: 100%;
+  font-size: 16px;
+  background-color: rgba(0,0,0,0.2);
+  border: none;
+  outline: none;
+  color: white;
+  padding: 10px;
+  text-align: center;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
 @keyframes App-logo-spin {
@@ -75,7 +122,7 @@ b {
   }
 }
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 1000px) {
   .Teams {
     margin-top: 0;
     min-height: 100vh;
@@ -84,4 +131,44 @@ b {
     width: calc(100% - 40px);
     min-width: calc(100% - 40px);
   }
+  .Results {
+    margin: auto;
+    margin-bottom: 40px;
+  }
+}
+
+.Loading {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 100;
+  background-color: rgba(0,0,0,0.5);
+}
+
+.Loading .Container {
+  color: white;
+  text-align: center;
+  margin: 0;
+  width: 40vw;
+  height: 20vw;
+  background-color: rgba(0,0,0,0.8);
+  box-shadow: 0 0 80px rgba(0,0,0,0.8);
+  border-radius: 10px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.Loading .Container img {
+  height: 80px;
+  width: 80px;
+  display: block;
+  margin: 0 auto;
+  margin-top: 30px;
 }

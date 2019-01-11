@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
+import team1logo from './images/team1.jpg';
+import team2logo from './images/team2.jpg';
+import spinner from './images/spinner.svg';
 import './App.css';
 import Betting from './services/Betting.js';
 import Team from './components/Team';
@@ -62,7 +65,7 @@ class App extends Component {
 
         <div className="Background" />
 
-        <div className="Container">
+        <div className="AppContainer">
           <div className="AppLogo">
             <img src={logo} alt="logo" />
             <h1>Blockchain Bet</h1>
@@ -72,8 +75,22 @@ class App extends Component {
             <h6>Your Wallet address is {this.state.address}</h6>
           </div>
           <div className="Teams">
-            <Team ref={(ref) => {this.team1 = ref}} teamID={1} app={this} />
-            <Team ref={(ref) => {this.team2 = ref}} teamID={2} app={this} />
+            <Team ref={(ref) => {this.team1 = ref}} logo={team1logo} teamID={1} app={this} />
+            <div className="Results">
+              <div className="Scores">
+                <input type="number" min="0" step="1" pattern="\d*" placeholder=".." /><span className="spacer">:</span>
+                <input type="number" min="0" step="1" pattern="\d*" placeholder=".." />
+              </div>
+              <button>Set result</button>
+            </div>
+            <Team ref={(ref) => {this.team2 = ref}} logo={team2logo} teamID={2} app={this} />
+          </div>
+        </div>
+
+        <div className="Loading">
+          <div className="Container">
+            <h2>Waiting transaction confirmation...</h2>
+            <img src={spinner} />
           </div>
         </div>
       </div>

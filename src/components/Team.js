@@ -92,17 +92,16 @@ class Team extends Component {
       <div className="Team">
         <div className="Main">
           <div className="Logo">
-            <img src="http://placehold.it/500x500" />
+            <img src={this.props.logo} />
           </div>
           <div className="Content">
             <h4>Team {this.props.teamID.toString()}</h4>
-            <p>Amount bet: <b>{this.state.amountBet}</b> ETH</p>
+            <p><b>{this.state.amountBet}</b> ETH</p>
           </div>
         </div>
         <div className="Bet">
-          <input type="text" placeholder="Bet amount.." onChange={this.onInputChange} name="inputAmount" required pattern="[0-9]*[.,][0-9]*"/>
+          <input type="number" min="0" placeholder="Bet amount.." onChange={this.onInputChange} name="inputAmount" required pattern="[0-9]*[.,][0-9]*"/>
           <button onClick={this.placeBet}>Bet</button>
-          <button onClick={this.makeWin}>Win</button>
         </div>
       </div>
     )
