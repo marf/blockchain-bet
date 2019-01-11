@@ -1,0 +1,72 @@
+.Team {
+  background-color: rgba(0,0,0,0.3);
+  border-radius: 8px;
+  box-shadow: 0 0 50px rgba(0,0,0,0.8);
+  color: white;
+  padding: 20px;
+  width: 40%;
+}
+
+.Team .Main {
+  display: flex;
+}
+
+.Team .Logo img {
+  height: 90px;
+  width: 90px;
+}
+
+.Team .Content {
+  align-self: center;
+  text-align: left;
+  padding-left: 10px;
+}
+
+.Team .Content h4 {
+  margin-top: 0;
+  font-weight: 400;
+}
+
+.Team .Content p {
+  font-size: 20px;
+  font-weight: 100;
+}
+
+.Team .Bet {
+  width: 100%;
+  margin-top: 20px;
+  justify-content: space-between;
+  display: flex;
+}
+
+.Team .Bet input {
+  width: 60%;
+  background-color: rgba(255,255,255,0.05);
+  border-radius: 5px;
+  border: none;
+  outline: none;
+  color: white;
+  font-size: 20px;
+  padding: 10px;
+  margin: 0 2px;
+}
+
+.Team .Bet button {
+  width: 15%;
+  background-color: rgba(255,255,255,0.1);
+  border-radius: 5px;
+  border: none;
+  margin: 0 2px;
+  outline: none;
+  color: white;
+  font-size: 20px;
+  padding: 10px;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 800px) {
+  .Team {
+    margin-bottom: 40px;
+    width: calc(100% - 20px);
+  }
+}

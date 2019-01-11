@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import Betting from './services/Betting.js';
-
 import Team from './components/Team';
 
 class App extends Component {
@@ -60,17 +59,23 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <div>
-            Your Wallet address is {this.state.address}
+
+        <div className="Background" />
+
+        <div className="Container">
+          <div className="AppLogo">
+            <img src={logo} alt="logo" />
+            <h1>Blockchain Bet</h1>
           </div>
-          <div>
-            Your balance is {this.state.balance} ETH
+          <div className="Content">
+            <h2>Your balance is <b>{this.state.balance} ETH</b></h2>
+            <h6>Your Wallet address is {this.state.address}</h6>
           </div>
-          <Team ref={(ref) => {this.team1 = ref}} teamID={1} app={this} />
-          <Team ref={(ref) => {this.team2 = ref}}teamID={2} app={this} />
-        </header>
+          <div className="Teams">
+            <Team ref={(ref) => {this.team1 = ref}} teamID={1} app={this} />
+            <Team ref={(ref) => {this.team2 = ref}} teamID={2} app={this} />
+          </div>
+        </div>
       </div>
     );
   }
