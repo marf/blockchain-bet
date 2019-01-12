@@ -15,7 +15,7 @@ contract BetContract {
 
     constructor() public {
       owner = msg.sender;
-      minimumBet = 100000000000000;
+      minimumBet = 100000000000000;  // 0.0001 ETH
     }
     function kill() public {
       if(msg.sender == owner) selfdestruct(owner);
@@ -67,6 +67,13 @@ contract BetContract {
              playerAddress.transfer(bet);
           }
 
+          delete playerInfo[playerAddress];
+          players.length = 0;
+          LoserBet = 0;
+          WinnerBet = 0;
+          sumBetsFirstTeam = 0;
+          sumBetsSecondTeam = 0;
+
           return;
       }
       else if ( winnerTeam == 1){
@@ -78,7 +85,7 @@ contract BetContract {
           LoserBet = sumBetsSecondTeam;
       }
 
-      if(WinnerBet == 0 && LoserBet == 0)
+      if(WinnerBet == 0)
         return;
 
       for(uint256 i = 0; i < players.length; i++){
@@ -97,7 +104,7 @@ contract BetContract {
             add = winners[j];
             bet = playerInfo[add].amount;
             //Transfer the money to the user
-            winners[j].transfer((bet*(10000+(LoserBet*10000/WinnerBet)))/10000);
+            winners[j].transfer((bet + (LoserBet*bet/WinnerBet)));
       }
 
       delete playerInfo[playerAddress];
