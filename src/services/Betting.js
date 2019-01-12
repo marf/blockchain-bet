@@ -11,7 +11,7 @@ let Betting = {
 
       const BetContractWeb3 = Betting.web3.eth.contract(BetContract.abi);
 
-      Betting.contract = BetContractWeb3.at("0x969e8b2cd8276c6706b4299a6211f12e206fede9");
+      Betting.contract = BetContractWeb3.at("0x8e415166b1162a31a9b0b38b42f7fe1ba98c17f4");
 
       Betting.currentTransactions = [];
 

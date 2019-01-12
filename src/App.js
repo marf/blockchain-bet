@@ -16,10 +16,14 @@ class App extends Component {
       address: '',
       isLoading: false,
       currentAccountIndex: 0,
+      team1Score: 0,
+      team2Score: 0
     }
   }
 
   componentDidMount = async () => {
+
+        document.title = 'Blockchain Bet';
 
         Betting.initializeContract((res)=> {
           if(res.status){
@@ -53,6 +57,34 @@ class App extends Component {
      });
   }
 
+  onInputChange = (e) => {
+    this.setState({[e.target.name]: e.target.value});
+  }
+
+  endMatch = async () => {
+
+    let winnerTeam = 3;
+
+    if(this.state.team1Score !== this.state.team2Score)
+      winnerTeam = this.state.team1Score > this.state.team2Score ? 1 : 2;
+
+    console.log(winnerTeam);
+
+    Betting.contract.distributePrizes(winnerTeam, { from: Betting.accounts[0] }, (error, result) => {
+      console.log(result);
+      if(result)
+      {
+          this.setState({isLoading: true});
+          Betting.checkTransactionDone(result, (res) => {
+            Betting.web3.eth.getBalance(Betting.currentAccount, (error, result) => {
+             this.updateBalance();
+            this.setState({isLoading: false, team1Score: 0, team2Score: 0});
+            });
+          });
+      }
+    });
+  }
+
   /*changeAccount = () => {
     let newAccountIndex = (this.state.currentAccountIndex + 1) % 2;
     this.setState({currentAccountIndex: newAccountIndex});
@@ -79,10 +111,10 @@ class App extends Component {
             <Team ref={(ref) => {this.team1 = ref}} logo={team1logo} teamID={1} app={this} />
             <div className="Results">
               <div className="Scores">
-                <input type="number" min="0" step="1" pattern="\d*" placeholder=".." /><span className="spacer">:</span>
-                <input type="number" min="0" step="1" pattern="\d*" placeholder=".." />
+                <input type="number" min="0" step="1" pattern="\d*" placeholder="0" name="team1Score" onChange={this.onInputChange} value={this.state.team1Score} /><span className="spacer">:</span>
+                <input type="number" min="0" step="1" pattern="\d*" placeholder="0" name="team2Score"  onChange={this.onInputChange} value={this.state.team2Score} />
               </div>
-              <button>Set result</button>
+              <button onClick={this.endMatch}>Set result</button>
             </div>
             <Team ref={(ref) => {this.team2 = ref}} logo={team2logo} teamID={2} app={this} />
           </div>
@@ -91,7 +123,7 @@ class App extends Component {
         <div className="Loading" style={{ display: this.state.isLoading ? 'block' : 'none'}}>
           <div className="Container">
             <h2>Waiting transaction confirmation...</h2>
-            <img src={spinner} />
+            <img src={spinner} alt={"Loading spinner"} />
           </div>
         </div>
       </div>

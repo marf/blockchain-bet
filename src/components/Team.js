@@ -54,30 +54,18 @@ class Team extends Component {
 
     Betting.contract.placeBet(this.state.teamID, { from: Betting.currentAccount, value: Betting.web3.toWei(this.state.inputAmount) }, (error, result) => {
       console.log(result);
-
+      this.app.setState({isLoading: true});
       Betting.checkTransactionDone(result, (res) => {
+        this.app.setState({isLoading: false});
         Betting.contract.getSumBetsByTeam(this.state.teamID, (error, result) => {
          if(!error)
          {
-              this.setState({ amountBet: Betting.web3.fromWei(result.toNumber())});
+              this.setState({ amountBet: Betting.web3.fromWei(result.toNumber()), inputAmount: 0});
               this.app.updateBalance();
          }
          else
              console.error(error);
          });
-      });
-    });
-  }
-
-  makeWin = async () => {
-
-    Betting.contract.distributePrizes(this.state.teamID, { from: Betting.accounts[0] }, (error, result) => {
-      console.log(result);
-
-      Betting.checkTransactionDone(result, (res) => {
-        Betting.web3.eth.getBalance(Betting.currentAccount, (error, result) => {
-         this.app.updateBalance();
-        });
       });
     });
   }
@@ -92,7 +80,7 @@ class Team extends Component {
       <div className="Team">
         <div className="Main">
           <div className="Logo">
-            <img src={this.props.logo} />
+            <img src={this.props.logo} alt={"Team image"} />
           </div>
           <div className="Content">
             <h4>Team {this.props.teamID.toString()}</h4>
@@ -100,7 +88,7 @@ class Team extends Component {
           </div>
         </div>
         <div className="Bet">
-          <input type="number" min="0" placeholder="Bet amount.." onChange={this.onInputChange} name="inputAmount" required pattern="[0-9]*[.,][0-9]*"/>
+          <input type="number" min="0" placeholder="Bet amount.." onChange={this.onInputChange} value={this.state.inputAmount} name="inputAmount" required pattern="[0-9]*[.,][0-9]*"/>
           <button onClick={this.placeBet}>Bet</button>
         </div>
       </div>
